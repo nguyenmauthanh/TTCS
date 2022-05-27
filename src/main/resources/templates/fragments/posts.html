@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div th:fragment="posts(posts)">
+
+    <div class="posts_wrapper">
+        <div class="post" th:each="post : ${posts}">
+            <h2><a th:href="@{'/post/' + ${post.id}}" th:text="${post.title}">Tiêu đề</a></h2>
+            <h5 th:text="'Được tạo vào ngày ' + ${#dates.format(post.creationDate, 'yyyy MMMM dd')} + ' bởi ' + ${post.user.username}">Ngày tạo và người tạo</h5>
+            <div class="img">Ảnh</div>
+            <p th:text="${post.body}">Nội dung bài viết</p>
+            <br>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

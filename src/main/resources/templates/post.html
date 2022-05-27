@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="/fragments/head :: head"></head>
+<body>
+
+<div th:replace="/fragments/header :: header"></div>
+
+<div class="container">
+    <div class="post">
+        <h2 th:text="${post.title}">Tiêu đề</h2>
+        <h5 th:text="'Được tạo vào ngày ' + ${#dates.format(post.creationDate, 'yyyy MMMM dd')} + ' bởi ' + ${post.user.username}">Ngày tạo và người tạo bài viết</h5>
+        <div class="img">Ảnh</div>
+        <p th:text="${post.body}">Nội dung bài viết</p>
+        <div class="align-right" sec:authorize="isAuthenticated()" th:if="${isOwner}">
+            <a th:href="@{'/editPost/{id}'(id=${post.id})}">
+                <button class="green-btn blue-btn" type="button">Sửa</button>
+            </a>
+        </div>
+    </div>
+    <div class="comments">
+        <h2>Nhận xét</h2>
+        <div class="comment" th:each="comment : ${post.comments}">
+            <h5 th:text="'Nhận xét vào ngày ' + ${#dates.format(comment.creationDate, 'yyyy-MM-dd')} + ' bởi ' + ${comment.user.username}">Ngày nhận xét và nhận xét bởi</h5>
+            <p th:text="${comment.body}">Nội dung</p>
+        </div>
+    </div>
+    <div class="align-center">
+        <a th:href="@{'/comment/{id}'(id=${post.id})}">
+            <button class="green-btn" type="button">Nhận xét bài viết</button>
+        </a>
+    </div>
+</div>
+
+<footer th:replace="/fragments/footer :: footer"></footer>
+
+</body>
+</html>

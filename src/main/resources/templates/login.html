@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="/fragments/head :: head"></head>
+
+<body>
+
+<div th:replace="/fragments/header :: header"></div>
+
+<div class="container">
+    <div th:if="${param.error}">
+        <p class="alert-red">Tên đăng nhập hoặc mật khẩu không đúng</p>
+    </div>
+    <div th:if="${param.logout}">
+        <p class="alert-green">Bạn đã đăng xuất thành công</p>
+    </div>
+
+    <form th:action="@{/login}" method="post">
+        <div>
+            <input type="text" name="username" id="username" placeholder="Tên đăng nhập" required="true" autofocus="true"/>
+        </div>
+        <div>
+            <input type="password" name="password" id="password" placeholder="Mật khẩu" required="true"/>
+        </div>
+        <div class="align-center">
+            <label for="remember-me">Nhớ mật khẩu</label>
+            <input type="checkbox" id="remember-me" name="remember-me">
+        </div>
+        <div>
+            <input type="submit" class="green-btn blue-btn" value="Đăng nhập"/>
+        </div>
+
+    </form>
+
+</div>
+
+<footer th:replace="/fragments/footer :: footer"></footer>
+
+</body>
+</html>
